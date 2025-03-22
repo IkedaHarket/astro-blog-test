@@ -1,0 +1,37 @@
+---
+import Image from "astro/components/Image.astro"
+import type { CollectionEntry } from "astro:content"
+
+interface Props{
+    author: CollectionEntry<'author'>
+}
+
+const { author } = Astro.props
+if(!author) return
+const { name, subtitle, twitter, linkedIn, github, bio, avatar } = author.data
+---
+
+<div class="max-w-lg mx-auto my-10 bg-white rounded-lg shadow-md p-5" id={`author-${author.id}`}>
+    <Image 
+        class="w-32 h-32 rounded-full mx-auto"
+        src={avatar}
+        width={200}
+        height={200}
+        alt={`Profile picture ${name}`}
+        transition:name={`${author.id}-image`}
+    />
+    <h2 class="text-center text-2xl font-semibold mt-3">{name}</h2>
+    <p class="text-center text-gray-600 mt-1">{subtitle}</p>
+    <div class="flex justify-center mt-5">
+      <a href={twitter} target="_blank" class="text-blue-500 hover:text-blue-700 mx-3">Twitter</a>
+      <a href={linkedIn}  target="_blank"class="text-blue-500 hover:text-blue-700 mx-3">LinkedIn</a>
+      <a href={github} target="_blank" class="text-blue-500 hover:text-blue-700 mx-3">GitHub</a>
+    </div>
+    <div class="mt-5">
+      <h3 class="text-xl font-semibold">Bio</h3>
+      <p class="text-gray-600 mt-2">{bio}</p>
+      <div class="flex justify-center">
+        <a href={`/blog/${author.id}`}>leer más</a>
+      </div>
+    </div>
+  </div>

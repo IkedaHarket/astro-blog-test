@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content"
+import { siteConfig } from "../config/site-config"
+import MainLayout from "../layouts/MainLayout.astro"
+import "../styles/global.css"
+import TypedBlogPost from "../components/TypedBlogPost.astro";
+
+const blogPosts = await getCollection('blog', (post) => (
+  post.data.isDraft === false
+));
+---
+
+<MainLayout title="Ikeda´s Blog">
+	<!-- component -->
+<section class="bg-gray-900">
+    <div class="container px-6 py-10 mx-auto">
+        <h1 class="text-3xl font-semibold capitalize lg:text-4xl text-white">
+			{siteConfig.title}
+		</h1>
+		
+		<a href="/blog/1">Blog Paginado</a> 
+    <span class="text-white mx-2"> - </span>
+		<a href="/authors">Autores</a>
+
+		<div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+			{
+				blogPosts.map( post => ( <TypedBlogPost post={post}/> ))
+			}          
+        </div>
+    </div>
+</section>
+</MainLayout>
+
+<style>
+    @reference "tailwindcss";
+  a {
+    @apply text-blue-500 hover:underline ;
+  }
+
+</style>
