@@ -1,5 +1,5 @@
 ---
-import Image from "astro/components/Image.astro"
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from "astro:content"
 
 interface Props{
@@ -12,7 +12,7 @@ const { name, subtitle, twitter, linkedIn, github, bio, avatar } = author.data
 ---
 
 <div class="max-w-lg mx-auto my-10 bg-white rounded-lg shadow-md p-5" id={`author-${author.id}`}>
-    <Image 
+    <Image
         class="w-32 h-32 rounded-full mx-auto"
         src={avatar}
         width={200}
